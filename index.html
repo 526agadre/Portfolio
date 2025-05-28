@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Aditya Gadre's portfolio showcasing web development and programming skills.">
+    <meta name="keywords" content="Aditya Gadre, portfolio, web developer, HTML, JavaScript, Python, Java">
+    <meta name="author" content="Aditya Gadre">
+    <title>Aditya Gadre - Portfolio</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="image/png" href="https://via.placeholder.com/32?text=AG">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Navigation */
+        .nav-links-mobile.active {
+            display: flex;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            margin: 2px 0;
+            transition: all 0.3s;
+        }
+
+        .hamburger.open span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .hamburger.open span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.open span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -7px);
+        }
+
+        /* Hero Section */
+        #particle-canvas {
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Skills Section */
+        .skill-card {
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, #ffffff, #f0f4ff);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .dark .skill-card {
+            background: linear-gradient(135deg, #1f2937, #374151);
+        }
+
+        .skill-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .skill-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: 0.5s;
+        }
+
+        .skill-card:hover::before {
+            left: 100%;
+        }
+
+        meter::-webkit-meter-bar {
+            background: #e5e7eb;
+            border-radius: 9999px;
+            border: none;
+        }
+
+        meter::-webkit-meter-optimum-value {
+            background: #2563eb;
+            border-radius: 9999px;
+        }
+
+        meter::-moz-meter-bar {
+            background: #2563eb;
+            border-radius: 9999px;
+        }
+
+        /* Project Card Hover Effect */
+        .project-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Form Input Focus */
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            outline: none;
+            border-color: #2563eb;
+            box-shadow: 0 0 5px rgba(37, 99, 235, 0.5);
+        }
+
+        /* Button Active State */
+        .filter-btn.active {
+            background-color: #2563eb !important;
+            color: #ffffff !important;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-300">
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full bg-white dark:bg-gray-800 shadow-lg z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-4">
+                <div class="logo text-2xl font-bold text-blue-600">AG</div>
+                <ul class="nav-links hidden md:flex space-x-6">
+                    <li><a href="#home" class="hover:text-blue-600 transition">Home</a></li>
+                    <li><a href="#about" class="hover:text-blue-600 transition">About</a></li>
+                    <li><a href="#skills" class="hover:text-blue-600 transition">Skills</a></li>
+                    <li><a href="#projects" class="hover:text-blue-600 transition">Projects</a></li>
+                    <li><a href="#contact" class="hover:text-blue-600 transition">Contact</a></li>
+                </ul>
+                <div class="flex items-center space-x-4">
+                    <button class="theme-toggle" aria-label="Toggle theme">
+                        <i class="fas fa-sun text-yellow-500"></i>
+                        <i class="fas fa-moon text-gray-300 hidden"></i>
+                    </button>
+                    <button class="hamburger md:hidden">
+                        <span class="bg-gray-900 dark:bg-gray-100"></span>
+                        <span class="bg-gray-900 dark:bg-gray-100"></span>
+                        <span class="bg-gray-900 dark:bg-gray-100"></span>
+                    </button>
+                </div>
+            </div>
+            <ul class="nav-links-mobile hidden flex-col space-y-4 mt-4 pb-4 md:hidden">
+                <li><a href="#home" class="hover:text-blue-600 transition">Home</a></li>
+                <li><a href="#about" class="hover:text-blue-600 transition">About</a></li>
+                <li><a href="#skills" class="hover:text-blue-600 transition">Skills</a></li>
+                <li><a href="#projects" class="hover:text-blue-600 transition">Projects</a></li>
+                <li><a href="#contact" class="hover:text-blue-600 transition">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative h-screen flex items-center justify-center text-center overflow-hidden">
+        <div class="hero-content z-10">
+            <h1 class="text-5xl md:text-7xl font-bold mb-4">Aditya Gadre</h1>
+            <p class="text-xl md:text-2xl mb-6">Web Developer | Programmer | Innovator</p>
+            <a href="#projects" class="inline-block px-6 py-3 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition">Explore My Work</a>
+        </div>
+        <canvas id="particle-canvas" class="absolute inset-0"></canvas>
+        <div class="absolute inset-0 bg-gradient-to-r from-blue-600 to-purple-600 opacity-75"></div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-4xl font-bold text-center mb-12">About Me</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+            <img src="https://via.placeholder.com/400" alt="Aditya Gadre" class="rounded-lg shadow-lg">
+            <div>
+                <p class="mb-4">Hi, I'm Aditya Gadre, a dedicated web developer and programmer based in [Your City]. I specialize in building responsive, user-friendly websites and applications using HTML, JavaScript, Python, and Java.</p>
+                <p class="mb-4">With a passion for coding and design, I create seamless digital experiences. Outside of tech, I enjoy exploring AI advancements, contributing to open-source, and sketching creative ideas.</p>
+                <a href="#contact" class="inline-block px-6 py-3 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition">Connect with Me</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-20 bg-gray-200 dark:bg-gray-800">
+        <header class="text-center mb-12">
+            <h2 class="text-4xl font-bold">My Skills</h2>
+            <p class="text-lg text-gray-600 dark:text-gray-300 mt-2">Proficiencies in programming languages</p>
+        </header>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <figure class="skill-card p-6 rounded-lg shadow-lg">
+                <i class="fab fa-html5 text-6xl text-orange-500 mb-4"></i>
+                <figcaption>
+                    <h3 class="text-xl font-semibold mb-2">HTML5</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">Crafting semantic and accessible web structures</p>
+                    <meter class="w-full h-4 rounded-full" min="0" max="4" low="1" high="3" optimum="4" value="4" title="Expert"></meter>
+                    <small class="block text-gray-500 dark:text-gray-400 mt-2">Expert</small>
+                </figcaption>
+            </figure>
+            <figure class="skill-card p-6 rounded-lg shadow-lg">
+                <i class="fab fa-js text-6xl text-yellow-500 mb-4"></i>
+                <figcaption>
+                    <h3 class="text-xl font-semibold mb-2">JavaScript</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">Building interactive, dynamic web experiences</p>
+                    <meter class="w-full h-4 rounded-full" min="0" max="4" low="1" high="3" optimum="4" value="2" title="Intermediate"></meter>
+                    <small class="block text-gray-500 dark:text-gray-400 mt-2">Intermediate</small>
+                </figcaption>
+            </figure>
+            <figure class="skill-card p-6 rounded-lg shadow-lg">
+                <i class="fab fa-python text-6xl text-blue-500 mb-4"></i>
+                <figcaption>
+                    <h3 class="text-xl font-semibold mb-2">Python</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">Developing robust backend and automation solutions</p>
+                    <meter class="w-full h-4 rounded-full" min="0" max="4" low="1" high="3" optimum="4" value="2" title="Intermediate"></meter>
+                    <small class="block text-gray-500 dark:text-gray-400 mt-2">Intermediate</small>
+                </figcaption>
+            </figure>
+            <figure class="skill-card p-6 rounded-lg shadow-lg">
+                <i class="fab fa-java text-6xl text-red-500 mb-4"></i>
+                <figcaption>
+                    <h3 class="text-xl font-semibold mb-2">Java</h3>
+                    <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">Creating scalable, enterprise-level applications</p>
+                    <meter class="w-full h-4 rounded-full" min="0" max="4" low="1" high="3" optimum="4" value="1" title="Beginner"></meter>
+                    <small class="block text-gray-500 dark:text-gray-400 mt-2">Beginner</small>
+                </figcaption>
+            </figure>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-4xl font-bold text-center mb-12">My Projects</h2>
+        <div class="flex justify-center mb-8 flex-wrap gap-2">
+        </div>
+        <div class="projects-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <article class="project-card bg-white dark:bg-gray-700 rounded-lg shadow-lg overflow-hidden" data-category="web">
+                <img src="Screenshot 2025-05-16 8.21.17 PM.png" alt="E-Commerce" class="w-full h-48 object-cover">
+                <div class="p-6">
+                    <h3 class="text-xl font-semibold mb-2">TopSpinUSA</h3>
+                    <p class="mb-4">A website made using WordPress (it is not done yet!)</p>
+                    <a href="https://topspinusa.com/" class="text-blue-600 hover:underline">View Project</a>
+                </div>
+            </article>
+            <article class="project-card bg-white dark:bg-gray-700 rounded-lg shadow-lg overflow-hidden" data-category="app">
+                <img src="Screenshot 2025-05-28 1.25.01 PM.png" alt="Task Manager" class="w-full h-48 object-cover">
+                <div class="p-6">
+                    <h3 class="text-xl font-semibold mb-2">France </h3>
+                    <p class="mb-4">A travel website about France</p>
+                    <a href="#" class="text-blue-600 hover:underline">View Project</a>
+                </div>
+            </article>
+            <article class="project-card bg-white dark:bg-gray-700 rounded-lg shadow-lg overflow-hidden" data-category="web">
+                <img src="https://via.placeholder.com/400x250" alt="Portfolio" class="w-full h-48 object-cover">
+                <div class="p-6">
+                    <h3 class="text-xl font-semibold mb-2">Personal Portfolio</h3>
+                    <p class="mb-4">This is a Tic-Tac-Toe game made using HTML, CSS, JavaScript</p>
+                    <a href="https://526agadre.github.io/Tic-Tac-Toe/" class="text-blue-600 hover:underline">View Project</a>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-gray-200 dark:bg-gray-800">
+        <h2 class="text-4xl font-bold text-center mb-12">Get in Touch</h2>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-2 gap-8">
+            <form class="contact-form space-y-4">
+                <div>
+                    <input type="text" id="name" placeholder="Your Name" class="w-full p-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700" required>
+                    <p class="error text-red-500 text-sm hidden">Please enter your name</p>
+                </div>
+                <div>
+                    <input type="email" id="email" placeholder="Your Email" class="w-full p-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700" required>
+                    <p class="error text-red-500 text-sm hidden">Please enter a valid email</p>
+                </div>
+                <div>
+                    <textarea id="message" placeholder="Your Message" class="w-full p-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700" rows="5" required></textarea>
+                    <p class="error text-red-500 text-sm hidden">Please enter a message</p>
+                </div>
+                <button type="submit" class="px-6 py-3 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition">Send Message</button>
+            </form>
+            <div class="flex flex-col justify-center items-center space-y-4">
+                <p class="text-lg">Connect with me on social media:</p>
+                <div class="social-links flex space-x-6">
+                    <a href="#" aria-label="GitHub"><i class="fab fa-github text-3xl hover:text-blue-600 transition"></i></a>
+                    <a href="#" aria-label="LinkedIn"><i class="fab fa-youtube text-3xl hover:text-blue-600 transition"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fab fa-discord text-3xl hover:text-blue-600 transition"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-6 bg-gray-900 text-gray-100 text-center">
+        <p>© 2025 Aditya Gadre. All rights reserved.</p>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.4/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.4/ScrollTrigger.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Theme Toggle
+            const themeToggle = document.querySelector('.theme-toggle');
+            const body = document.body;
+
+            themeToggle.addEventListener('click', () => {
+                body.classList.toggle('dark');
+                themeToggle.querySelector('.fa-sun').classList.toggle('hidden');
+                themeToggle.querySelector('.fa-moon').classList.toggle('hidden');
+                localStorage.setItem('theme', body.classList.contains('dark') ? 'dark' : 'light');
+            });
+
+            // Load Theme
+            if (localStorage.getItem('theme') === 'dark') {
+                body.classList.add('dark');
+                themeToggle.querySelector('.fa-sun').classList.add('hidden');
+                themeToggle.querySelector('.fa-moon').classList.remove('hidden');
+            }
+
+            // Hamburger Menu
+            const hamburger = document.querySelector('.hamburger');
+            const navLinksMobile = document.querySelector('.nav-links-mobile');
+
+            hamburger.addEventListener('click', () => {
+                hamburger.classList.toggle('open');
+                navLinksMobile.classList.toggle('active');
+            });
+
+            // Smooth Scroll
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    document.querySelector(anchor.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                    if (navLinksMobile.classList.contains('active')) {
+                        hamburger.classList.remove('open');
+                        navLinksMobile.classList.remove('active');
+                    }
+                });
+            });
+
+            // Particle Animation
+            const canvas = document.getElementById('particle-canvas');
+            const ctx = canvas.getContext('2d');
+
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+
+            const particles = [];
+            const particleCount = 150;
+
+            class Particle {
+                constructor() {
+                    this.x = Math.random() * canvas.width;
+                    this.y = Math.random() * canvas.height;
+                    this.size = Math.random() * 3 + 1;
+                    this.speedX = Math.random() * 2 - 1;
+                    this.speedY = Math.random() * 2 - 1;
+                    this.opacity = Math.random() * 0.5 + 0.3;
+                    this.color = `hsl(${Math.random() * 360}, 70%, 70%)`;
+                }
+
+                update() {
+                    this.x += this.speedX;
+                    this.y += this.speedY;
+                    if (this.size > 0.2) this.size -= 0.05;
+                    if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+                    if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+                }
+
+                draw() {
+                    ctx.fillStyle = this.color;
+                    ctx.globalAlpha = this.opacity;
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    ctx.fill();
+                    ctx.globalAlpha = 1;
+                }
+            }
+
+            function initParticles() {
+                for (let i = 0; i < particleCount; i++) {
+                    particles.push(new Particle());
+                }
+            }
+
+            function animateParticles() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                particles.forEach(particle => {
+                    particle.update();
+                    particle.draw();
+                    if (particle.size <= 0.2) {
+                        particle.x = Math.random() * canvas.width;
+                        particle.y = Math.random() * canvas.height;
+                        particle.size = Math.random() * 3 + 1;
+                        particle.opacity = Math.random() * 0.5 + 0.3;
+                        particle.color = `hsl(${Math.random() * 360}, 70%, 70%)`;
+                    }
+                });
+                requestAnimationFrame(animateParticles);
+            }
+
+            initParticles();
+            animateParticles();
+
+            window.addEventListener('resize', () => {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            });
+
+            // GSAP Animations
+            gsap.registerPlugin(ScrollTrigger);
+
+            gsap.from('.hero-content', {
+                opacity: 0,
+                y: 50,
+                duration: 1,
+                ease: 'power3.out'
+            });
+
+            gsap.from('.skill-card', {
+                scrollTrigger: {
+                    trigger: '#skills',
+                    start: 'top 80%',
+                },
+                opacity: 0,
+                y: 50,
+                duration: 1,
+                stagger: 0.2,
+                ease: 'power3.out'
+            });
+
+            gsap.utils.toArray('.project-card').forEach(card => {
+                gsap.from(card, {
+                    scrollTrigger: {
+                        trigger: card,
+                        start: 'top 80%',
+                    },
+                    opacity: 0,
+                    scale: 0.9,
+                    duration: 0.8,
+                    ease: 'power2.out'
+                });
+            });
+
+            // Project Filter
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const projectCards = document.querySelectorAll('.project-card');
+
+            filterButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    filterButtons.forEach(btn => {
+                        btn.classList.remove('active');
+                        btn.classList.add('bg-gray-300', 'dark:bg-gray-600', 'text-gray-900', 'dark:text-gray-100');
+                    });
+                    button.classList.add('active');
+                    button.classList.remove('bg-gray-300', 'dark:bg-gray-600', 'text-gray-900', 'dark:text-gray-100');
+
+                    const filter = button.getAttribute('data-filter');
+                    projectCards.forEach(card => {
+                        if (filter === 'all' || card.getAttribute('data-category') === filter) {
+                            card.style.display = 'block';
+                            gsap.fromTo(card, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5 });
+                        } else {
+                            gsap.to(card, {
+                                opacity: 0,
+                                y: 20,
+                                duration: 0.5,
+                                onComplete: () => {
+                                    card.style.display = 'none';
+                                }
+                            });
+                        }
+                    });
+                });
+            });
+
+            // Form Validation and Submission
+            const form = document.querySelector('.contact-form');
+            const nameInput = document.getElementById('name');
+            const emailInput = document.getElementById('email');
+            const messageInput = document.getElementById('message');
+
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                let isValid = true;
+
+                // Reset errors
+                document.querySelectorAll('.error').forEach(error => error.classList.add('hidden'));
+
+                // Validate Name
+                if (!nameInput.value.trim()) {
+                    nameInput.nextElementSibling.classList.remove('hidden');
+                    isValid = false;
+                }
+
+                // Validate Email
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(emailInput.value.trim())) {
+                    emailInput.nextElementSibling.classList.remove('hidden');
+                    isValid = false;
+                }
+
+                // Validate Message
+                if (!messageInput.value.trim()) {
+                    messageInput.nextElementSibling.classList.remove('hidden');
+                    isValid = false;
+                }
+
+                if (isValid) {
+                    alert('Message sent successfully! (This is a demo)');
+                    form.reset();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
